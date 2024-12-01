@@ -65,14 +65,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void setUpPushNotifications() async {
-    await _fcm.requestPermission();
+    await _fcm.requestPermission(); //request permissions to send notifications
     final token = await _fcm.getToken();
-    print("FCM Token: $token");
+    print("FCM Token: $token"); // get the token for the device to test notifications
 
-    FirebaseMessaging.onMessage.listen((message) {
-      print("Foreground Notification: ${message.notification?.title}");
-      showDialog(
-        context: context,
+    FirebaseMessaging.onMessage.listen((message) { // listen to the messages that are being sent
+      print("Foreground Notification: ${message.notification?.title}"); 
+      showDialog( // show a dialog with the notification title and body
+        context: context, 
         builder: (context) => AlertDialog(
           title: Text(message.notification?.title ?? 'Notification'),
           content: Text(message.notification?.body ?? 'No body'),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
       );
     });
 
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler); 
   }
 
   static Future<void> _firebaseMessagingBackgroundHandler(
