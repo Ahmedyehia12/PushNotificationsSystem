@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.cyan[50],
       body: FutureBuilder<List<String>>(
-        future: getChannels(),
+        future: getChannels(), // when this function is done, the futureBuilder will rebuild
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
