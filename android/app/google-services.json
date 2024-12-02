@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1057229189967",
+    "firebase_url": "https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com",
     "project_id": "flutter-push-notificatio-bee4c",
     "storage_bucket": "flutter-push-notificatio-bee4c.firebasestorage.app"
   },

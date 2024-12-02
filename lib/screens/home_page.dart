@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   final Set<String> _subscribedChannels = {};
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     setUpPushNotifications();
     loadUserSubscriptions();
