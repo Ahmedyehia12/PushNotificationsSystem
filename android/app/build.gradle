@@ -5,6 +5,8 @@ plugins {
     // END: FlutterFire Configuration
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+
+    
 }
 
 def localProperties = new Properties()
@@ -66,5 +68,3 @@ android {
 flutter {
     source '../..'
 }
-
-dependencies {}

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'chat_room_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.userId});
+ const  HomePage({super.key, required this.userId});
   final String userId;
 
   @override
