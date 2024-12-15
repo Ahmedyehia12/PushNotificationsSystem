@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'chat_room_page.dart';
 
 class HomePage extends StatefulWidget {
- const  HomePage({super.key, required this.userId});
+  const HomePage({super.key, required this.userId});
   final String userId;
 
   @override
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   final Set<String> _subscribedChannels = {};
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     setUpPushNotifications();
     loadUserSubscriptions();
@@ -62,6 +62,26 @@ class _HomePageState extends State<HomePage> {
       _subscribedChannels.remove(channel);
     });
     await updateUserSubscriptions(widget.userId, _subscribedChannels.toList());
+  }
+
+  void _addChannel(String channel) async {
+    await FirebaseFirestore.instance.collection('channels').add({
+      'name': channel,
+    });
+    setState(() {});
+  }
+
+  void _removeChannel(String channel) async {
+    await FirebaseFirestore.instance
+        .collection('channels')
+        .where('name', isEqualTo: channel)
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
+    setState(() {});
   }
 
   void setUpPushNotifications() async {
@@ -118,38 +138,87 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 final channel = channels[index];
                 final isSubscribed = _subscribedChannels.contains(channel);
-                return ListTile(
-                  title: Text(channel),
-                  trailing: ElevatedButton(
-                    onPressed: () {
-                      if (isSubscribed) {
-                        _unsubscribeFromChannel(channel);
-                      } else {
-                        _subscribeToChannel(channel);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isSubscribed ? Colors.red : Colors.green,
-                    ),
-                    child: Text(isSubscribed ? 'Unsubscribe' : 'Subscribe'),
-                  ),
-                  onTap: () {
-                    // Navigate to the chat room when tapping the channel
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatRoomPage(
-                          channelName: channel,
-                          userId: widget.userId,
-                        ),
-                      ),
-                    );
+                return Dismissible(
+                  key: Key(channel),
+                  onDismissed: (direction) {
+                    _removeChannel(channel);
                   },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    child: const Icon(Icons.delete),
+                  ),
+                  child: ListTile(
+                    title: Text(channel),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        if (isSubscribed) {
+                          _unsubscribeFromChannel(channel);
+                        } else {
+                          _subscribeToChannel(channel);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isSubscribed ? Colors.red : Colors.green,
+                      ),
+                      child: Text(isSubscribed ? 'Unsubscribe' : 'Subscribe'),
+                    ),
+                    onTap: () {
+                      // Navigate to the chat room when tapping the channel
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatRoomPage(
+                            channelName: channel,
+                            userId: widget.userId,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              final controller = TextEditingController();
+              return AlertDialog(
+                title: const Text('Add Channel'),
+                content: TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Channel Name',
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      final channel = controller.text.trim();
+                      if (channel.isNotEmpty) {
+                        _addChannel(channel);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Add'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
