@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   final Set<String> _subscribedChannels = {};
 
   @override
@@ -54,6 +56,10 @@ class _HomePageState extends State<HomePage> {
       _subscribedChannels.add(channel);
     });
     await updateUserSubscriptions(widget.userId, _subscribedChannels.toList());
+    await _analytics.logEvent(
+      name: 'subscribe', 
+      parameters: {'user': widget.userId, 'channel': channel}
+    );
   }
 
   void _unsubscribeFromChannel(String channel) async {
