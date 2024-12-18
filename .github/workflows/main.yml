@@ -3,7 +3,7 @@ name: CI/CD with Firebase App Distribution
 on:
   push:
     branches:
-      - main
+      - master  # Change to 'main' if your default branch is named 'main'
 
 jobs:
   build-and-distribute:
@@ -14,34 +14,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Set up JDK (for Android)
-    - name: Set up JDK
-      uses: actions/setup-java@v3
+    # Set up Flutter environment
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
       with:
-        java-version: '17'
+        flutter-version: 'stable'
 
-    # Set up Firebase CLI
+    # Install Flutter dependencies
+    - name: Install dependencies
+      run: flutter pub get
+
+    # Build the Flutter app (APK for Android)
+    - name: Build Flutter APK
+      run: flutter build apk --release
+
+    # Install Firebase CLI
     - name: Install Firebase CLI
       run: |
         curl -sL https://firebase.tools | bash
 
-    # Build the app (Android)
-    - name: Build Android App
-      run: |
-        ./gradlew assembleRelease
-
-    # Authenticate with Firebase
-    - name: Authenticate with Firebase
-      env:
-        FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
-      run: firebase login:ci --no-localhost
-
-    # Upload to Firebase App Distribution
+    # Upload APK to Firebase App Distribution
     - name: Upload APK to Firebase
       env:
         FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
         ANDROID_APP_ID: ${{ secrets.ANDROID_APP_ID }}
       run: |
-        firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
+        firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
           --app $ANDROID_APP_ID \
           --groups testers
