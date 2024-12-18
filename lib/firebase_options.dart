@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1057229189967',
     projectId: 'flutter-push-notificatio-bee4c',
     authDomain: 'flutter-push-notificatio-bee4c.firebaseapp.com',
+    databaseURL: 'https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com',
     storageBucket: 'flutter-push-notificatio-bee4c.firebasestorage.app',
   );
 
@@ -54,6 +55,7 @@ class DefaultFirebaseOptions {
     appId: '1:1057229189967:android:8eb1ca6e527774a0cc4b3a',
     messagingSenderId: '1057229189967',
     projectId: 'flutter-push-notificatio-bee4c',
+    databaseURL: 'https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com',
     storageBucket: 'flutter-push-notificatio-bee4c.firebasestorage.app',
   );
 
@@ -62,6 +64,7 @@ class DefaultFirebaseOptions {
     appId: '1:1057229189967:ios:0f2f8bb22d2e48b2cc4b3a',
     messagingSenderId: '1057229189967',
     projectId: 'flutter-push-notificatio-bee4c',
+    databaseURL: 'https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com',
     storageBucket: 'flutter-push-notificatio-bee4c.firebasestorage.app',
     iosBundleId: 'com.example.pushChatNotifications',
   );
@@ -71,6 +74,7 @@ class DefaultFirebaseOptions {
     appId: '1:1057229189967:ios:0f2f8bb22d2e48b2cc4b3a',
     messagingSenderId: '1057229189967',
     projectId: 'flutter-push-notificatio-bee4c',
+    databaseURL: 'https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com',
     storageBucket: 'flutter-push-notificatio-bee4c.firebasestorage.app',
     iosBundleId: 'com.example.pushChatNotifications',
   );
@@ -81,6 +85,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1057229189967',
     projectId: 'flutter-push-notificatio-bee4c',
     authDomain: 'flutter-push-notificatio-bee4c.firebaseapp.com',
+    databaseURL: 'https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com',
     storageBucket: 'flutter-push-notificatio-bee4c.firebasestorage.app',
   );
 

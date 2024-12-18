@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1057229189967",
+    "firebase_url": "https://flutter-push-notificatio-bee4c-default-rtdb.firebaseio.com",
     "project_id": "flutter-push-notificatio-bee4c",
     "storage_bucket": "flutter-push-notificatio-bee4c.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.push_chat_notifications"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1057229189967-bing02i982b61np7qesijb3tkppdg5g5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.push_chat_notifications",
+            "certificate_hash": "26e7b9df55b8c3dfc8e591de44ef2e2b899e1c83"
+          }
+        },
+        {
+          "client_id": "1057229189967-ov2onnp6k29kho8m0fkdrboes4g2imhq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAi43ntpTx3Mk6mVH3Jo2kuSWXfG182iBo"
@@ -20,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057229189967-ov2onnp6k29kho8m0fkdrboes4g2imhq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1057229189967-buh4crcp9srtastr388qjs4kreasj7n1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pushChatNotifications"
+              }
+            }
+          ]
         }
       }
     }
