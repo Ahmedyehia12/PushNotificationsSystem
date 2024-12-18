@@ -34,6 +34,7 @@ jobs:
         curl -sL https://firebase.tools | bash
 
     # Upload APK to Firebase App Distribution
+    # testtt
     - name: Upload APK to Firebase
       env:
         FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
