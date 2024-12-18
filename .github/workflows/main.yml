@@ -1,0 +1,47 @@
+name: CI/CD with Firebase App Distribution
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up JDK (for Android)
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+
+    # Set up Firebase CLI
+    - name: Install Firebase CLI
+      run: |
+        curl -sL https://firebase.tools | bash
+
+    # Build the app (Android)
+    - name: Build Android App
+      run: |
+        ./gradlew assembleRelease
+
+    # Authenticate with Firebase
+    - name: Authenticate with Firebase
+      env:
+        FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
+      run: firebase login:ci --no-localhost
+
+    # Upload to Firebase App Distribution
+    - name: Upload APK to Firebase
+      env:
+        FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
+        ANDROID_APP_ID: ${{ secrets.ANDROID_APP_ID }}
+      run: |
+        firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
+          --app $ANDROID_APP_ID \
+          --groups testers
