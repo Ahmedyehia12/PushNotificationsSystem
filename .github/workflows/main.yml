@@ -43,3 +43,4 @@ jobs:
         firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
           --app $ANDROID_APP_ID \
           --token ${{ secrets.FIREBASE_AUTH_TOKEN }}
+# End of file
