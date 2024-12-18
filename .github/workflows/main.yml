@@ -42,4 +42,5 @@ jobs:
       run: |
         firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
           --app $ANDROID_APP_ID \
-          --groups testers
+          --groups testers \
+          --token ${{ secrets.FIREBASE_AUTH_TOKEN }}
