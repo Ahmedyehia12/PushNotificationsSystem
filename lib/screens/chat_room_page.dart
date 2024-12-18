@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 class ChatRoomPage extends StatefulWidget {
   final String channelName;
   final String userId;
+  //aaaaaa
   const ChatRoomPage(
       {super.key, required this.channelName, required this.userId});
 
