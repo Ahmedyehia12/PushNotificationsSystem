@@ -68,6 +68,10 @@ class _HomePageState extends State<HomePage> {
       _subscribedChannels.remove(channel);
     });
     await updateUserSubscriptions(widget.userId, _subscribedChannels.toList());
+    await _analytics.logEvent(
+      name: 'unsubscribe', 
+      parameters: {'user': widget.userId, 'channel': channel}
+    );
   }
 
   void _addChannel(String channel) async {
